@@ -21,11 +21,11 @@ clean_all:
 
 pub-get-all:
 	@find . -name pubspec.yaml -exec echo "### Getting packages for {}" \; \
-  	-execdir flutter pub get \;
+	-execdir flutter pub get \;
 
 generate-code-all:
 	@find . -name pubspec.yaml -exec echo "### Generating sources for {}" \; \
-    -execdir flutter pub run build_runner build --delete-conflicting-outputs \;
+	-execdir flutter pub run build_runner build --delete-conflicting-outputs \;
 
 feature:
 	cd features && flutter create --template=package $(NAME)
