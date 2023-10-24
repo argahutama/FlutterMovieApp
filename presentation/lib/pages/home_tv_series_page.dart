@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:presentation/pages/about_page.dart';
 import 'package:presentation/pages/home_movie_page.dart';
 import 'package:presentation/pages/movie_detail_page.dart';
-import 'package:presentation/pages/popular_movies_page.dart';
+import 'package:presentation/pages/popular_tv_series_page.dart';
 import 'package:presentation/pages/search_page.dart';
-import 'package:presentation/pages/top_rated_movies_page.dart';
+import 'package:presentation/pages/top_rated_tv_series_page.dart';
 import 'package:presentation/pages/watchlist_movies_page.dart';
 import 'package:presentation/provider/tv_series_list_notifier.dart';
 
@@ -111,7 +111,7 @@ class _HomeTvSeriesPageState extends State<HomeTvSeriesPage> {
               _buildSubHeading(
                 title: 'Popular',
                 onTap: () =>
-                    Navigator.pushNamed(context, PopularMoviesPage.routeName),
+                    Navigator.pushNamed(context, PopularTvSeriesPage.routeName),
               ),
               Consumer<TvSeriesListNotifier>(builder: (context, data, child) {
                 final state = data.popularTvSeriesState;
@@ -127,8 +127,8 @@ class _HomeTvSeriesPageState extends State<HomeTvSeriesPage> {
               }),
               _buildSubHeading(
                 title: 'Top Rated',
-                onTap: () =>
-                    Navigator.pushNamed(context, TopRatedMoviesPage.routeName),
+                onTap: () => Navigator.pushNamed(
+                    context, TopRatedTvSeriesPage.routeName),
               ),
               Consumer<TvSeriesListNotifier>(builder: (context, data, child) {
                 final state = data.topRatedTvSeriesState;

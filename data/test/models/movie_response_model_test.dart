@@ -10,7 +10,7 @@ void main() {
   final tMovieModel = MovieModel(
     adult: false,
     backdropPath: '/path.jpg',
-    genreIds: [1, 2, 3, 4],
+    genreIds: const [1, 2, 3, 4],
     id: 1,
     originalTitle: 'Original Title',
     overview: 'Overview',
@@ -21,7 +21,7 @@ void main() {
     video: false,
     voteAverage: 1.0,
     voteCount: 1,
-    isMovie: true
+    isMovie: null,
   );
   final tMovieResponseModel =
       MovieResponse(movieList: <MovieModel>[tMovieModel]);
@@ -60,7 +60,8 @@ void main() {
             'title': 'Title',
             'video': false,
             'vote_average': 1.0,
-            'vote_count': 1
+            'vote_count': 1,
+            'is_movie': null,
           }
         ],
       };

@@ -5,8 +5,10 @@ import 'package:presentation/pages/home_movie_page.dart';
 import 'package:presentation/pages/home_tv_series_page.dart';
 import 'package:presentation/pages/movie_detail_page.dart';
 import 'package:presentation/pages/popular_movies_page.dart';
+import 'package:presentation/pages/popular_tv_series_page.dart';
 import 'package:presentation/pages/search_page.dart';
 import 'package:presentation/pages/top_rated_movies_page.dart';
+import 'package:presentation/pages/top_rated_tv_series_page.dart';
 import 'package:presentation/pages/watchlist_movies_page.dart';
 
 Route<dynamic> onGenerateRoute(RouteSettings settings) {
@@ -23,9 +25,17 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
       return CupertinoPageRoute(
         builder: (_) => const PopularMoviesPage(),
       );
+    case PopularTvSeriesPage.routeName:
+      return CupertinoPageRoute(
+        builder: (_) => const PopularTvSeriesPage(),
+      );
     case TopRatedMoviesPage.routeName:
       return CupertinoPageRoute(
         builder: (_) => const TopRatedMoviesPage(),
+      );
+    case TopRatedTvSeriesPage.routeName:
+      return CupertinoPageRoute(
+        builder: (_) => const TopRatedTvSeriesPage(),
       );
     case MovieDetailPage.routeName:
       final args = settings.arguments as Map<String, dynamic>?;

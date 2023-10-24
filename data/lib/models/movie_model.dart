@@ -45,7 +45,7 @@ class MovieModel extends Equatable {
         popularity: json["popularity"].toDouble(),
         posterPath: json["poster_path"],
         releaseDate: json["release_date"] ?? json["first_air_date"],
-        title: json["title"],
+        title: json["title"] ?? json["original_name"],
         video: json["video"],
         voteAverage: json["vote_average"].toDouble(),
         voteCount: json["vote_count"],
