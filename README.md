@@ -1,16 +1,26 @@
-# flutter_movie_app
+# Flutter Movie App
 
-A new Flutter project.
+A Flutter app that displays movie and tv series using the [The Movie DB API](https://www.themoviedb.org/).
 
-## Getting Started
+## Author
 
-This project is a starting point for a Flutter application.
+- Arga Hutama (argahut@gmail.com)
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## How to run
+To run the app with preparation, execute the following command:
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```
+make all
+```
+
+To run the app, execute the following command:
+
+```
+make run
+```
+
+To run the app tests, execute the following command:
+```
+make run-test
+```
