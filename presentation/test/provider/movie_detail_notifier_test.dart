@@ -65,13 +65,14 @@ void main() {
     video: false,
     voteAverage: 1,
     voteCount: 1,
+    isMovie: true,
   );
   final tMovies = <Movie>[tMovie];
 
   void arrangeUsecase() {
-    when(mockGetMovieDetail.execute(tId))
-        .thenAnswer((_) async => const Right(testMovieDetail));
-    when(mockGetMovieRecommendations.execute(tId))
+    when(mockGetMovieDetail.execute(tId, true))
+        .thenAnswer((_) async => Right(testMovieDetail));
+    when(mockGetMovieRecommendations.execute(tId, true))
         .thenAnswer((_) async => Right(tMovies));
   }
 
@@ -80,17 +81,17 @@ void main() {
       // arrange
       arrangeUsecase();
       // act
-      await provider.fetchMovieDetail(tId);
+      await provider.fetchMovieDetail(tId, true);
       // assert
-      verify(mockGetMovieDetail.execute(tId));
-      verify(mockGetMovieRecommendations.execute(tId));
+      verify(mockGetMovieDetail.execute(tId, true));
+      verify(mockGetMovieRecommendations.execute(tId, true));
     });
 
     test('should change state to Loading when usecase is called', () {
       // arrange
       arrangeUsecase();
       // act
-      provider.fetchMovieDetail(tId);
+      provider.fetchMovieDetail(tId, true);
       // assert
       expect(provider.movieState, RequestState.loading);
       expect(listenerCallCount, 1);
@@ -100,7 +101,7 @@ void main() {
       // arrange
       arrangeUsecase();
       // act
-      await provider.fetchMovieDetail(tId);
+      await provider.fetchMovieDetail(tId, true);
       // assert
       expect(provider.movieState, RequestState.loaded);
       expect(provider.movie, testMovieDetail);
@@ -112,7 +113,7 @@ void main() {
       // arrange
       arrangeUsecase();
       // act
-      await provider.fetchMovieDetail(tId);
+      await provider.fetchMovieDetail(tId, true);
       // assert
       expect(provider.movieState, RequestState.loaded);
       expect(provider.movieRecommendations, tMovies);
@@ -124,9 +125,9 @@ void main() {
       // arrange
       arrangeUsecase();
       // act
-      await provider.fetchMovieDetail(tId);
+      await provider.fetchMovieDetail(tId, true);
       // assert
-      verify(mockGetMovieRecommendations.execute(tId));
+      verify(mockGetMovieRecommendations.execute(tId, true));
       expect(provider.movieRecommendations, tMovies);
     });
 
@@ -135,7 +136,7 @@ void main() {
       // arrange
       arrangeUsecase();
       // act
-      await provider.fetchMovieDetail(tId);
+      await provider.fetchMovieDetail(tId, true);
       // assert
       expect(provider.recommendationState, RequestState.loaded);
       expect(provider.movieRecommendations, tMovies);
@@ -143,12 +144,12 @@ void main() {
 
     test('should update error message when request in successful', () async {
       // arrange
-      when(mockGetMovieDetail.execute(tId))
-          .thenAnswer((_) async => const Right(testMovieDetail));
-      when(mockGetMovieRecommendations.execute(tId))
+      when(mockGetMovieDetail.execute(tId, true))
+          .thenAnswer((_) async => Right(testMovieDetail));
+      when(mockGetMovieRecommendations.execute(tId, true))
           .thenAnswer((_) async => const Left(ServerFailure('Failed')));
       // act
-      await provider.fetchMovieDetail(tId);
+      await provider.fetchMovieDetail(tId, true);
       // assert
       expect(provider.recommendationState, RequestState.error);
       expect(provider.message, 'Failed');
@@ -221,12 +222,12 @@ void main() {
   group('on Error', () {
     test('should return error when data is unsuccessful', () async {
       // arrange
-      when(mockGetMovieDetail.execute(tId))
+      when(mockGetMovieDetail.execute(tId, true))
           .thenAnswer((_) async => const Left(ServerFailure('Server Failure')));
-      when(mockGetMovieRecommendations.execute(tId))
+      when(mockGetMovieRecommendations.execute(tId, true))
           .thenAnswer((_) async => Right(tMovies));
       // act
-      await provider.fetchMovieDetail(tId);
+      await provider.fetchMovieDetail(tId, true);
       // assert
       expect(provider.movieState, RequestState.error);
       expect(provider.message, 'Server Failure');

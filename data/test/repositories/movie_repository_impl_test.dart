@@ -28,26 +28,7 @@ void main() {
     );
   });
 
-  const tMovieModel = MovieModel(
-    adult: false,
-    backdropPath: '/muth4OYamXf41G2evdrLEg8d3om.jpg',
-    genreIds: [14, 28],
-    id: 557,
-    originalTitle: 'Spider-Man',
-    overview: 'After being bitten by a genetically altered spider, '
-        'nerdy high school student Peter Parker is endowed with '
-        'amazing powers to become the Amazing superhero known as '
-        'Spider-Man.',
-    popularity: 60.441,
-    posterPath: '/rweIrveL43TaxUN0akQEaAXL6x0.jpg',
-    releaseDate: '2002-05-01',
-    title: 'Spider-Man',
-    video: false,
-    voteAverage: 7.2,
-    voteCount: 13507,
-  );
-
-  final tMovie = Movie(
+  final tMovieModel = MovieModel(
     adult: false,
     backdropPath: '/muth4OYamXf41G2evdrLEg8d3om.jpg',
     genreIds: const [14, 28],
@@ -64,7 +45,27 @@ void main() {
     video: false,
     voteAverage: 7.2,
     voteCount: 13507,
+    isMovie: true,
   );
+
+  final tMovie = Movie(
+      adult: false,
+      backdropPath: '/muth4OYamXf41G2evdrLEg8d3om.jpg',
+      genreIds: const [14, 28],
+      id: 557,
+      originalTitle: 'Spider-Man',
+      overview: 'After being bitten by a genetically altered spider, '
+          'nerdy high school student Peter Parker is endowed with '
+          'amazing powers to become the Amazing superhero known as '
+          'Spider-Man.',
+      popularity: 60.441,
+      posterPath: '/rweIrveL43TaxUN0akQEaAXL6x0.jpg',
+      releaseDate: '2002-05-01',
+      title: 'Spider-Man',
+      video: false,
+      voteAverage: 7.2,
+      voteCount: 13507,
+      isMovie: true);
 
   final tMovieModelList = <MovieModel>[tMovieModel];
   final tMovieList = <Movie>[tMovie];
@@ -221,6 +222,7 @@ void main() {
       video: false,
       voteAverage: 1,
       voteCount: 1,
+      isMovie: true,
     );
 
     test(
@@ -230,10 +232,10 @@ void main() {
       when(mockRemoteDataSource.getMovieDetail(tId))
           .thenAnswer((_) async => tMovieResponse);
       // act
-      final result = await repository.getMovieDetail(tId);
+      final result = await repository.getMovieDetail(tId, true);
       // assert
       verify(mockRemoteDataSource.getMovieDetail(tId));
-      expect(result, equals(const Right(testMovieDetail)));
+      expect(result, equals(Right(testMovieDetail)));
     });
 
     test(
@@ -243,7 +245,7 @@ void main() {
       when(mockRemoteDataSource.getMovieDetail(tId))
           .thenThrow(ServerException());
       // act
-      final result = await repository.getMovieDetail(tId);
+      final result = await repository.getMovieDetail(tId, true);
       // assert
       verify(mockRemoteDataSource.getMovieDetail(tId));
       expect(result, equals(const Left(ServerFailure(''))));
@@ -251,13 +253,12 @@ void main() {
 
     test(
         'should return connection failure when '
-            'the device is not connected to internet',
-        () async {
+        'the device is not connected to internet', () async {
       // arrange
       when(mockRemoteDataSource.getMovieDetail(tId))
           .thenThrow(const SocketException('Failed to connect to the network'));
       // act
-      final result = await repository.getMovieDetail(tId);
+      final result = await repository.getMovieDetail(tId, true);
       // assert
       verify(mockRemoteDataSource.getMovieDetail(tId));
       expect(
@@ -277,7 +278,7 @@ void main() {
       when(mockRemoteDataSource.getMovieRecommendations(tId))
           .thenAnswer((_) async => tMovieList);
       // act
-      final result = await repository.getMovieRecommendations(tId);
+      final result = await repository.getMovieRecommendations(tId, true);
       // assert
       verify(mockRemoteDataSource.getMovieRecommendations(tId));
       /* workaround to test List in Right. Issue: https://github.com/spebbe/dartz/issues/80 */
@@ -287,13 +288,12 @@ void main() {
 
     test(
         'should return server failure when '
-            'call to remote data source is unsuccessful',
-        () async {
+        'call to remote data source is unsuccessful', () async {
       // arrange
       when(mockRemoteDataSource.getMovieRecommendations(tId))
           .thenThrow(ServerException());
       // act
-      final result = await repository.getMovieRecommendations(tId);
+      final result = await repository.getMovieRecommendations(tId, true);
       // assertbuild runner
       verify(mockRemoteDataSource.getMovieRecommendations(tId));
       expect(result, equals(const Left(ServerFailure(''))));
@@ -306,7 +306,7 @@ void main() {
       when(mockRemoteDataSource.getMovieRecommendations(tId))
           .thenThrow(const SocketException('Failed to connect to the network'));
       // act
-      final result = await repository.getMovieRecommendations(tId);
+      final result = await repository.getMovieRecommendations(tId, true);
       // assert
       verify(mockRemoteDataSource.getMovieRecommendations(tId));
       expect(

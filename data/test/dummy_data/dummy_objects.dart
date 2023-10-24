@@ -3,10 +3,10 @@ import 'package:domain/entities/genre.dart';
 import 'package:domain/entities/movie.dart';
 import 'package:domain/entities/movie_detail.dart';
 
-const testMovieDetail = MovieDetail(
+final testMovieDetail = MovieDetail(
   adult: false,
   backdropPath: 'backdropPath',
-  genres: [Genre(id: 1, name: 'Action')],
+  genres: const [Genre(id: 1, name: 'Action')],
   id: 1,
   originalTitle: 'originalTitle',
   overview: 'overview',
@@ -16,6 +16,7 @@ const testMovieDetail = MovieDetail(
   title: 'title',
   voteAverage: 1,
   voteCount: 1,
+  isMovie: true,
 );
 
 final testWatchlistMovie = Movie.watchlist(
@@ -23,6 +24,7 @@ final testWatchlistMovie = Movie.watchlist(
   title: 'title',
   posterPath: 'posterPath',
   overview: 'overview',
+  isMovie: true,
 );
 
 const testMovieTable = MovieTable(
@@ -30,6 +32,7 @@ const testMovieTable = MovieTable(
   title: 'title',
   posterPath: 'posterPath',
   overview: 'overview',
+  isMovie: 1,
 );
 
 final testMovieMap = {

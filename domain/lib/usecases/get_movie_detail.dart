@@ -8,7 +8,7 @@ class GetMovieDetail {
 
   GetMovieDetail(this.repository);
 
-  Future<Either<Failure, MovieDetail>> execute(int id) {
-    return repository.getMovieDetail(id);
+  Future<Either<Failure, MovieDetail>> execute(int id, bool isMovie) {
+    return repository.getMovieDetail(id, isMovie);
   }
 }

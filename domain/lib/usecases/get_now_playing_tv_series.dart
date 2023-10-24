@@ -3,12 +3,12 @@ import 'package:domain/entities/movie.dart';
 import 'package:domain/repositories/movie_repository.dart';
 import 'package:common/failure.dart';
 
-class GetMovieRecommendations {
+class GetNowPlayingTvSeries {
   final MovieRepository repository;
 
-  GetMovieRecommendations(this.repository);
+  GetNowPlayingTvSeries(this.repository);
 
-  Future<Either<Failure, List<Movie>>> execute(int id, bool isMovie) {
-    return repository.getMovieRecommendations(id, isMovie);
+  Future<Either<Failure, List<Movie>>> execute() {
+    return repository.getNowPlayingTvSeries();
   }
 }

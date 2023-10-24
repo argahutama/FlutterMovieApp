@@ -16,6 +16,7 @@ class Movie extends Equatable {
     required this.video,
     required this.voteAverage,
     required this.voteCount,
+    required this.isMovie,
   });
 
   Movie.watchlist({
@@ -23,6 +24,7 @@ class Movie extends Equatable {
     required this.overview,
     required this.posterPath,
     required this.title,
+    required this.isMovie,
   });
 
   bool? adult;
@@ -38,6 +40,7 @@ class Movie extends Equatable {
   bool? video;
   double? voteAverage;
   int? voteCount;
+  bool? isMovie;
 
   @override
   List<Object?> get props => [
@@ -54,5 +57,6 @@ class Movie extends Equatable {
         video,
         voteAverage,
         voteCount,
+        isMovie,
       ];
 }

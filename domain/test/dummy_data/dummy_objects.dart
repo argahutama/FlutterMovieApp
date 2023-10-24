@@ -18,14 +18,15 @@ final testMovie = Movie(
   video: false,
   voteAverage: 7.2,
   voteCount: 13507,
+  isMovie: true
 );
 
 final testMovieList = [testMovie];
 
-const testMovieDetail = MovieDetail(
+final testMovieDetail = MovieDetail(
   adult: false,
   backdropPath: 'backdropPath',
-  genres: [Genre(id: 1, name: 'Action')],
+  genres: const [Genre(id: 1, name: 'Action')],
   id: 1,
   originalTitle: 'originalTitle',
   overview: 'overview',
@@ -35,4 +36,5 @@ const testMovieDetail = MovieDetail(
   title: 'title',
   voteAverage: 1,
   voteCount: 1,
+  isMovie: true,
 );

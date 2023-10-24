@@ -1,8 +1,9 @@
 import 'package:common/common.dart';
 import 'package:domain/entities/movie.dart';
 
+//ignore: must_be_immutable
 class MovieModel extends Equatable {
-  const MovieModel({
+  MovieModel({
     required this.adult,
     required this.backdropPath,
     required this.genreIds,
@@ -16,42 +17,45 @@ class MovieModel extends Equatable {
     required this.video,
     required this.voteAverage,
     required this.voteCount,
+    required this.isMovie,
   });
 
-  final bool adult;
+  final bool? adult;
   final String? backdropPath;
-  final List<int> genreIds;
-  final int id;
-  final String originalTitle;
-  final String overview;
-  final double popularity;
+  final List<int>? genreIds;
+  final int? id;
+  final String? originalTitle;
+  final String? overview;
+  final double? popularity;
   final String? posterPath;
   final String? releaseDate;
-  final String title;
-  final bool video;
-  final double voteAverage;
-  final int voteCount;
+  final String? title;
+  final bool? video;
+  final double? voteAverage;
+  final int? voteCount;
+  bool? isMovie;
 
   factory MovieModel.fromJson(Map<String, dynamic> json) => MovieModel(
         adult: json["adult"],
         backdropPath: json["backdrop_path"],
         genreIds: List<int>.from(json["genre_ids"].map((x) => x)),
         id: json["id"],
-        originalTitle: json["original_title"],
+        originalTitle: json["original_title"] ?? json["original_name"],
         overview: json["overview"],
         popularity: json["popularity"].toDouble(),
         posterPath: json["poster_path"],
-        releaseDate: json["release_date"],
+        releaseDate: json["release_date"] ?? json["first_air_date"],
         title: json["title"],
         video: json["video"],
         voteAverage: json["vote_average"].toDouble(),
         voteCount: json["vote_count"],
+        isMovie: null,
       );
 
   Map<String, dynamic> toJson() => {
         "adult": adult,
         "backdrop_path": backdropPath,
-        "genre_ids": List<dynamic>.from(genreIds.map((x) => x)),
+        "genre_ids": List<dynamic>.from((genreIds ?? []).map((x) => x)),
         "id": id,
         "original_title": originalTitle,
         "overview": overview,
@@ -62,6 +66,7 @@ class MovieModel extends Equatable {
         "video": video,
         "vote_average": voteAverage,
         "vote_count": voteCount,
+        "is_movie": isMovie,
       };
 
   Movie toEntity() {
@@ -69,7 +74,7 @@ class MovieModel extends Equatable {
       adult: adult,
       backdropPath: backdropPath,
       genreIds: genreIds,
-      id: id,
+      id: id ?? 0,
       originalTitle: originalTitle,
       overview: overview,
       popularity: popularity,
@@ -79,6 +84,7 @@ class MovieModel extends Equatable {
       video: video,
       voteAverage: voteAverage,
       voteCount: voteCount,
+      isMovie: isMovie,
     );
   }
 
@@ -97,5 +103,6 @@ class MovieModel extends Equatable {
         video,
         voteAverage,
         voteCount,
+        isMovie,
       ];
 }

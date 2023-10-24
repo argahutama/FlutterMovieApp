@@ -21,10 +21,10 @@ void main() {
   test('should get list of movie recommendations from the repository',
       () async {
     // arrange
-    when(mockMovieRepository.getMovieRecommendations(tId))
+    when(mockMovieRepository.getMovieRecommendations(tId, true))
         .thenAnswer((_) async => Right(tMovies));
     // act
-    final result = await usecase.execute(tId);
+    final result = await usecase.execute(tId, true);
     // assert
     expect(result, Right(tMovies));
   });

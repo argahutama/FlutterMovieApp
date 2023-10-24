@@ -1,8 +1,9 @@
-import 'package:domain/entities/genre.dart';
 import 'package:common/common.dart';
+import 'package:domain/entities/genre.dart';
 
+//ignore: must_be_immutable
 class MovieDetail extends Equatable {
-  const MovieDetail({
+  MovieDetail({
     required this.adult,
     required this.backdropPath,
     required this.genres,
@@ -15,6 +16,7 @@ class MovieDetail extends Equatable {
     required this.title,
     required this.voteAverage,
     required this.voteCount,
+    required this.isMovie,
   });
 
   final bool adult;
@@ -29,6 +31,7 @@ class MovieDetail extends Equatable {
   final String title;
   final double voteAverage;
   final int voteCount;
+  bool isMovie;
 
   @override
   List<Object?> get props => [
@@ -43,5 +46,6 @@ class MovieDetail extends Equatable {
         title,
         voteAverage,
         voteCount,
+        isMovie,
       ];
 }

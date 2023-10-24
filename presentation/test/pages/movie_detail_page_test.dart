@@ -1,12 +1,12 @@
+import 'package:common/common.dart';
 import 'package:common/state_enum.dart';
 import 'package:domain/entities/movie.dart';
-import 'package:presentation/pages/movie_detail_page.dart';
-import 'package:presentation/provider/movie_detail_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:common/common.dart';
+import 'package:presentation/pages/movie_detail_page.dart';
+import 'package:presentation/provider/movie_detail_notifier.dart';
 
 import '../dummy_data/dummy_objects.dart';
 import 'movie_detail_page_test.mocks.dart';
@@ -30,8 +30,7 @@ void main() {
 
   testWidgets(
       'Watchlist button should display add icon when '
-          'movie not added to watchlist',
-      (WidgetTester tester) async {
+      'movie not added to watchlist', (WidgetTester tester) async {
     when(mockNotifier.movieState).thenReturn(RequestState.loaded);
     when(mockNotifier.movie).thenReturn(testMovieDetail);
     when(mockNotifier.recommendationState).thenReturn(RequestState.loaded);
@@ -40,15 +39,17 @@ void main() {
 
     final watchlistButtonIcon = find.byIcon(Icons.add);
 
-    await tester.pumpWidget(makeTestableWidget(const MovieDetailPage(id: 1)));
+    await tester.pumpWidget(makeTestableWidget(const MovieDetailPage(
+      id: 1,
+      isMovie: true,
+    )));
 
     expect(watchlistButtonIcon, findsOneWidget);
   });
 
   testWidgets(
       'Watchlist button should dispay check icon when '
-          'movie is added to wathclist',
-      (WidgetTester tester) async {
+      'movie is added to wathclist', (WidgetTester tester) async {
     when(mockNotifier.movieState).thenReturn(RequestState.loaded);
     when(mockNotifier.movie).thenReturn(testMovieDetail);
     when(mockNotifier.recommendationState).thenReturn(RequestState.loaded);
@@ -57,7 +58,10 @@ void main() {
 
     final watchlistButtonIcon = find.byIcon(Icons.check);
 
-    await tester.pumpWidget(makeTestableWidget(const MovieDetailPage(id: 1)));
+    await tester.pumpWidget(makeTestableWidget(const MovieDetailPage(
+      id: 1,
+      isMovie: true,
+    )));
 
     expect(watchlistButtonIcon, findsOneWidget);
   });
@@ -74,7 +78,10 @@ void main() {
 
     final watchlistButton = find.byType(ElevatedButton);
 
-    await tester.pumpWidget(makeTestableWidget(const MovieDetailPage(id: 1)));
+    await tester.pumpWidget(makeTestableWidget(const MovieDetailPage(
+      id: 1,
+      isMovie: true,
+    )));
 
     expect(find.byIcon(Icons.add), findsOneWidget);
 
@@ -87,8 +94,7 @@ void main() {
 
   testWidgets(
       'Watchlist button should display AlertDialog when '
-          'add to watchlist failed',
-      (WidgetTester tester) async {
+      'add to watchlist failed', (WidgetTester tester) async {
     when(mockNotifier.movieState).thenReturn(RequestState.loaded);
     when(mockNotifier.movie).thenReturn(testMovieDetail);
     when(mockNotifier.recommendationState).thenReturn(RequestState.loaded);
@@ -98,7 +104,10 @@ void main() {
 
     final watchlistButton = find.byType(ElevatedButton);
 
-    await tester.pumpWidget(makeTestableWidget(const MovieDetailPage(id: 1)));
+    await tester.pumpWidget(makeTestableWidget(const MovieDetailPage(
+      id: 1,
+      isMovie: true,
+    )));
 
     expect(find.byIcon(Icons.add), findsOneWidget);
 

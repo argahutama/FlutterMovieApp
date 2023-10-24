@@ -1,8 +1,8 @@
+import 'package:common/state_enum.dart';
 import 'package:domain/entities/movie.dart';
 import 'package:domain/entities/movie_detail.dart';
 import 'package:domain/usecases/get_movie_detail.dart';
 import 'package:domain/usecases/get_movie_recommendations.dart';
-import 'package:common/state_enum.dart';
 import 'package:domain/usecases/get_watchlist_status.dart';
 import 'package:domain/usecases/remove_watchlist.dart';
 import 'package:domain/usecases/save_watchlist.dart';
@@ -28,28 +28,35 @@ class MovieDetailNotifier extends ChangeNotifier {
   });
 
   late MovieDetail _movie;
+
   MovieDetail get movie => _movie;
 
   RequestState _movieState = RequestState.empty;
+
   RequestState get movieState => _movieState;
 
   List<Movie> _movieRecommendations = [];
+
   List<Movie> get movieRecommendations => _movieRecommendations;
 
   RequestState _recommendationState = RequestState.empty;
+
   RequestState get recommendationState => _recommendationState;
 
   String _message = '';
+
   String get message => _message;
 
   bool _isAddedtoWatchlist = false;
+
   bool get isAddedToWatchlist => _isAddedtoWatchlist;
 
-  Future<void> fetchMovieDetail(int id) async {
+  Future<void> fetchMovieDetail(int id, bool isMovie) async {
     _movieState = RequestState.loading;
     notifyListeners();
-    final detailResult = await getMovieDetail.execute(id);
-    final recommendationResult = await getMovieRecommendations.execute(id);
+    final detailResult = await getMovieDetail.execute(id, isMovie);
+    final recommendationResult =
+        await getMovieRecommendations.execute(id, isMovie);
     detailResult.fold(
       (failure) {
         _movieState = RequestState.error;
@@ -77,6 +84,7 @@ class MovieDetailNotifier extends ChangeNotifier {
   }
 
   String _watchlistMessage = '';
+
   String get watchlistMessage => _watchlistMessage;
 
   Future<void> addWatchlist(MovieDetail movie) async {

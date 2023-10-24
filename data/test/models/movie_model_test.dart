@@ -3,7 +3,7 @@ import 'package:domain/entities/movie.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  const tMovieModel = MovieModel(
+  final tMovieModel = MovieModel(
     adult: false,
     backdropPath: 'backdropPath',
     genreIds: [1, 2, 3],
@@ -17,6 +17,7 @@ void main() {
     video: false,
     voteAverage: 1,
     voteCount: 1,
+    isMovie: true,
   );
 
   final tMovie = Movie(
@@ -33,6 +34,7 @@ void main() {
     video: false,
     voteAverage: 1,
     voteCount: 1,
+    isMovie: true
   );
 
   test('should be a subclass of Movie entity', () async {

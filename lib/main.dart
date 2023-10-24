@@ -2,20 +2,15 @@ import 'package:common/common.dart';
 import 'package:common/constants.dart';
 import 'package:common/di/injection.dart';
 import 'package:common/utils.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:presentation/pages/about_page.dart';
+import 'package:flutter_movie_app/route/route.dart';
 import 'package:presentation/pages/home_movie_page.dart';
-import 'package:presentation/pages/movie_detail_page.dart';
-import 'package:presentation/pages/popular_movies_page.dart';
-import 'package:presentation/pages/search_page.dart';
-import 'package:presentation/pages/top_rated_movies_page.dart';
-import 'package:presentation/pages/watchlist_movies_page.dart';
 import 'package:presentation/provider/movie_detail_notifier.dart';
 import 'package:presentation/provider/movie_list_notifier.dart';
 import 'package:presentation/provider/movie_search_notifier.dart';
 import 'package:presentation/provider/popular_movies_notifier.dart';
 import 'package:presentation/provider/top_rated_movies_notifier.dart';
+import 'package:presentation/provider/tv_series_list_notifier.dart';
 import 'package:presentation/provider/watchlist_movie_notifier.dart';
 
 import '../di/injection.dart' as di;
@@ -33,6 +28,9 @@ class MyApp extends StatelessWidget {
         providers: [
           ChangeNotifierProvider(
             create: (_) => getIt<MovieListNotifier>(),
+          ),
+          ChangeNotifierProvider(
+            create: (_) => getIt<TvSeriesListNotifier>(),
           ),
           ChangeNotifierProvider(
             create: (_) => getIt<MovieDetailNotifier>(),
@@ -60,43 +58,7 @@ class MyApp extends StatelessWidget {
           ),
           home: const HomeMoviePage(),
           navigatorObservers: [routeObserver],
-          onGenerateRoute: (RouteSettings settings) {
-            switch (settings.name) {
-              case '/home':
-                return MaterialPageRoute(
-                  builder: (_) => const HomeMoviePage(),
-                );
-              case PopularMoviesPage.routeName:
-                return CupertinoPageRoute(
-                  builder: (_) => const PopularMoviesPage(),
-                );
-              case TopRatedMoviesPage.routeName:
-                return CupertinoPageRoute(
-                  builder: (_) => const TopRatedMoviesPage(),
-                );
-              case MovieDetailPage.routeName:
-                final id = settings.arguments as int;
-                return MaterialPageRoute(
-                  builder: (_) => MovieDetailPage(id: id),
-                  settings: settings,
-                );
-              case SearchPage.routeName:
-                return CupertinoPageRoute(builder: (_) => const SearchPage());
-              case WatchlistMoviesPage.routeName:
-                return MaterialPageRoute(
-                    builder: (_) => const WatchlistMoviesPage());
-              case AboutPage.routeName:
-                return MaterialPageRoute(builder: (_) => const AboutPage());
-              default:
-                return MaterialPageRoute(builder: (_) {
-                  return const Scaffold(
-                    body: Center(
-                      child: Text('Page not found :('),
-                    ),
-                  );
-                });
-            }
-          },
+          onGenerateRoute: onGenerateRoute,
         ),
       );
 }

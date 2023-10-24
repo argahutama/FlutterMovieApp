@@ -12,8 +12,13 @@ class MovieDetailPage extends StatefulWidget {
   static const routeName = '/detail';
 
   final int id;
+  final bool isMovie;
 
-  const MovieDetailPage({super.key, required this.id});
+  const MovieDetailPage({
+    super.key,
+    required this.id,
+    required this.isMovie,
+  });
 
   @override
   State<MovieDetailPage> createState() => _MovieDetailPageState();
@@ -25,7 +30,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
     super.initState();
     Future.microtask(() {
       Provider.of<MovieDetailNotifier>(context, listen: false)
-          .fetchMovieDetail(widget.id);
+          .fetchMovieDetail(widget.id, widget.isMovie);
       Provider.of<MovieDetailNotifier>(context, listen: false)
           .loadWatchlistStatus(widget.id);
     });
@@ -41,6 +46,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
               child: CircularProgressIndicator(),
             );
           } else if (provider.movieState == RequestState.loaded) {
+            provider.movie.isMovie = widget.isMovie;
             final movie = provider.movie;
             return SafeArea(
               child: DetailContent(
@@ -213,7 +219,10 @@ class DetailContent extends StatelessWidget {
                                               Navigator.pushReplacementNamed(
                                                 context,
                                                 MovieDetailPage.routeName,
-                                                arguments: movie.id,
+                                                arguments: {
+                                                  'id': movie.id,
+                                                  'isMovie': movie.isMovie,
+                                                },
                                               );
                                             },
                                             child: ClipRRect(
