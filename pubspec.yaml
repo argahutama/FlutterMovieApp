@@ -16,13 +16,12 @@ dependencies:
     path: data
   domain:
     path: domain
-  home:
-    path: features/home
-  detail:
-    path: features/detail
+  presentation:
+    path: presentation
   cupertino_icons: ^1.0.2
   injectable: ^2.1.1
   get_it: ^7.2.0
+  http: ^1.1.0
 
 dev_dependencies:
   flutter_test:
@@ -30,6 +29,9 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   build_runner: ^2.3.3
   injectable_generator: ^2.1.5
+  mockito: ^5.0.8
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/

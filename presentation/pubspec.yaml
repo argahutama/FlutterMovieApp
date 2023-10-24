@@ -1,4 +1,4 @@
-name: data
+name: presentation
 description: A new Flutter package project.
 version: 0.0.1
 publish_to: none
@@ -10,12 +10,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  sqflite: ^2.0.0+3
-  http: ^1.1.0
   domain:
     path: ../domain
   common:
     path: ../common
+  flutter_rating_bar: ^4.0.0
 
 dev_dependencies:
   flutter_test:

@@ -1,4 +1,4 @@
-all-dev:
+all:
 	$(MAKE) pub-get-all
 	$(MAKE) generate-code-all
 	$(MAKE) run
@@ -28,16 +28,15 @@ generate-code-all:
 	-execdir flutter pub run build_runner build --delete-conflicting-outputs \;
 
 feature:
-	cd features && flutter create --template=package $(NAME)
+	flutter create --template=package $(NAME)
 	cp analysis_options.yaml features/$(NAME)
 	cp common/Makefile features/$(NAME)
-	cd features/$(NAME)
-	rm features/$(NAME)/{README.md,CHANGELOG.md,LICENSE}
-	cd features/$(NAME) && make dependencies
-	echo 'library $(NAME);' > features/$(NAME)/lib/$(NAME).dart
-	echo 'void main() {}' > features/$(NAME)/test/$(NAME)_test.dart
-	git add features/$(NAME)
+	cd $(NAME)
+	rm $(NAME)/{README.md,CHANGELOG.md,LICENSE}
+	cd $(NAME) && make dependencies
+	echo 'library $(NAME);' > $(NAME)/lib/$(NAME).dart
+	echo 'void main() {}' > $(NAME)/test/$(NAME)_test.dart
+	git add $(NAME)
 
 run:
-	$(MAKE) analyze
 	flutter run --target lib/main.dart
