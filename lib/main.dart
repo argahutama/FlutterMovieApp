@@ -13,6 +13,7 @@ import 'package:presentation/provider/popular_tv_series_notifier.dart';
 import 'package:presentation/provider/top_rated_movies_notifier.dart';
 import 'package:presentation/provider/top_rated_tv_series_notifier.dart';
 import 'package:presentation/provider/tv_series_list_notifier.dart';
+import 'package:presentation/provider/tv_series_search_notifier.dart';
 import 'package:presentation/provider/watchlist_movie_notifier.dart';
 
 import '../di/injection.dart' as di;
@@ -39,6 +40,9 @@ class MyApp extends StatelessWidget {
           ),
           ChangeNotifierProvider(
             create: (_) => getIt<MovieSearchNotifier>(),
+          ),
+          ChangeNotifierProvider(
+            create: (_) => getIt<TvSeriesSearchNotifier>(),
           ),
           ChangeNotifierProvider(
             create: (_) => getIt<TopRatedMoviesNotifier>(),

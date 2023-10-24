@@ -5,16 +5,16 @@ import 'package:presentation/widgets/movie_card_list.dart';
 import 'package:flutter/material.dart';
 import 'package:common/common.dart';
 
-class SearchPage extends StatelessWidget {
-  static const routeName = '/search';
+class SearchMoviesPage extends StatelessWidget {
+  static const routeName = '/search-movies';
 
-  const SearchPage({super.key});
+  const SearchMoviesPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Search'),
+        title: const Text('Search Movies'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

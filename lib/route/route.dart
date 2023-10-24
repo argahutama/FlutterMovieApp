@@ -6,7 +6,8 @@ import 'package:presentation/pages/home_tv_series_page.dart';
 import 'package:presentation/pages/movie_detail_page.dart';
 import 'package:presentation/pages/popular_movies_page.dart';
 import 'package:presentation/pages/popular_tv_series_page.dart';
-import 'package:presentation/pages/search_page.dart';
+import 'package:presentation/pages/search_movies_page.dart';
+import 'package:presentation/pages/search_tv_series_page.dart';
 import 'package:presentation/pages/top_rated_movies_page.dart';
 import 'package:presentation/pages/top_rated_tv_series_page.dart';
 import 'package:presentation/pages/watchlist_movies_page.dart';
@@ -50,8 +51,10 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
         ),
         settings: settings,
       );
-    case SearchPage.routeName:
-      return CupertinoPageRoute(builder: (_) => const SearchPage());
+    case SearchMoviesPage.routeName:
+      return CupertinoPageRoute(builder: (_) => const SearchMoviesPage());
+    case SearchTvSeriesPage.routeName:
+      return CupertinoPageRoute(builder: (_) => const SearchTvSeriesPage());
     case WatchlistMoviesPage.routeName:
       return MaterialPageRoute(builder: (_) => const WatchlistMoviesPage());
     case AboutPage.routeName:

@@ -7,7 +7,7 @@ import 'package:presentation/pages/about_page.dart';
 import 'package:presentation/pages/home_movie_page.dart';
 import 'package:presentation/pages/movie_detail_page.dart';
 import 'package:presentation/pages/popular_tv_series_page.dart';
-import 'package:presentation/pages/search_page.dart';
+import 'package:presentation/pages/search_tv_series_page.dart';
 import 'package:presentation/pages/top_rated_tv_series_page.dart';
 import 'package:presentation/pages/watchlist_movies_page.dart';
 import 'package:presentation/provider/tv_series_list_notifier.dart';
@@ -80,7 +80,7 @@ class _HomeTvSeriesPageState extends State<HomeTvSeriesPage> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.pushNamed(context, SearchPage.routeName);
+              Navigator.pushNamed(context, SearchTvSeriesPage.routeName);
             },
             icon: const Icon(Icons.search),
           )

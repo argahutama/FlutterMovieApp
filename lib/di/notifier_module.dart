@@ -7,6 +7,7 @@ import 'package:presentation/provider/popular_tv_series_notifier.dart';
 import 'package:presentation/provider/top_rated_movies_notifier.dart';
 import 'package:presentation/provider/top_rated_tv_series_notifier.dart';
 import 'package:presentation/provider/tv_series_list_notifier.dart';
+import 'package:presentation/provider/tv_series_search_notifier.dart';
 import 'package:presentation/provider/watchlist_movie_notifier.dart';
 
 @module
@@ -22,6 +23,9 @@ abstract class NotifierModule {
 
   @injectable
   MovieSearchNotifier get movieSearchNotifier;
+
+  @injectable
+  TvSeriesSearchNotifier get tvSeriesSearchNotifier;
 
   @injectable
   PopularMoviesNotifier get popularMoviesNotifier;
