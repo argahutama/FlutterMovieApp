@@ -9,12 +9,6 @@ import 'package:domain/usecases/get_watchlist_status.dart';
 import 'package:domain/usecases/remove_watchlist.dart';
 import 'package:domain/usecases/save_watchlist.dart';
 import 'package:domain/usecases/search_movies.dart';
-import 'package:presentation/provider/movie_detail_notifier.dart';
-import 'package:presentation/provider/movie_list_notifier.dart';
-import 'package:presentation/provider/movie_search_notifier.dart';
-import 'package:presentation/provider/popular_movies_notifier.dart';
-import 'package:presentation/provider/top_rated_movies_notifier.dart';
-import 'package:presentation/provider/watchlist_movie_notifier.dart';
 
 @module
 abstract class UseCaseModule {

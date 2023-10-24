@@ -1,4 +1,4 @@
-import 'package:dartz/dartz.dart';
+import 'package:common/common.dart';
 import 'package:domain/entities/movie.dart';
 import 'package:domain/usecases/get_popular_movies.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -20,7 +20,8 @@ void main() {
   group('GetPopularMovies Tests', () {
     group('execute', () {
       test(
-          'should get list of movies from the repository when execute function is called',
+          'should get list of movies from the repository when '
+              'execute function is called',
           () async {
         // arrange
         when(mockMovieRpository.getPopularMovies())

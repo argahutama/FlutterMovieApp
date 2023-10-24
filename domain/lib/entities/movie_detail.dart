@@ -2,7 +2,7 @@ import 'package:domain/entities/genre.dart';
 import 'package:common/common.dart';
 
 class MovieDetail extends Equatable {
-  MovieDetail({
+  const MovieDetail({
     required this.adult,
     required this.backdropPath,
     required this.genres,

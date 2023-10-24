@@ -39,4 +39,5 @@ feature:
 	git add $(NAME)
 
 run:
+	$(MAKE) analyze
 	flutter run --target lib/main.dart
