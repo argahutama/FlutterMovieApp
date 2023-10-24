@@ -834,3 +834,4 @@ Temporary Items
 *.config.dart
 *.freezed.dart
 *.g.dart
+*.mocks.dart

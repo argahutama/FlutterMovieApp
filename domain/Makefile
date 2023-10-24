@@ -6,3 +6,9 @@ build-runner:
 
 watch-runner:
 	flutter packages pub run build_runner watch --delete-conflicting-outputs
+
+run-test:
+	flutter test --coverage
+	lcov --remove coverage/lcov.info 'lib/entities/*' -o coverage/lcov.info
+	genhtml --ignore-errors empty coverage/lcov.info -o coverage/html
+	open coverage/html/index.html

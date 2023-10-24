@@ -15,7 +15,12 @@ watch-runner:
 analyze:
 	flutter analyze
 
-clean_all:
+run-test:
+	@for module in domain data presentation; do \
+		$(MAKE) -C $$module run-test; \
+	done
+
+clean-all:
 	@find . -name pubspec.yaml -exec echo "### Cleaning {}" \; \
 	-execdir flutter clean \;
 
@@ -26,17 +31,6 @@ pub-get-all:
 generate-code-all:
 	@find . -name pubspec.yaml -exec echo "### Generating sources for {}" \; \
 	-execdir flutter pub run build_runner build --delete-conflicting-outputs \;
-
-feature:
-	flutter create --template=package $(NAME)
-	cp analysis_options.yaml features/$(NAME)
-	cp common/Makefile features/$(NAME)
-	cd $(NAME)
-	rm $(NAME)/{README.md,CHANGELOG.md,LICENSE}
-	cd $(NAME) && make dependencies
-	echo 'library $(NAME);' > $(NAME)/lib/$(NAME).dart
-	echo 'void main() {}' > $(NAME)/test/$(NAME)_test.dart
-	git add $(NAME)
 
 run:
 	$(MAKE) analyze
