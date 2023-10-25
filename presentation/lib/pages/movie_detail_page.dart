@@ -53,6 +53,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                 movie,
                 provider.movieRecommendations,
                 provider.isAddedToWatchlist,
+                widget.isMovie,
               ),
             );
           } else {
@@ -68,9 +69,15 @@ class DetailContent extends StatelessWidget {
   final MovieDetail movie;
   final List<Movie> recommendations;
   final bool isAddedWatchlist;
+  final bool isMovie;
 
-  const DetailContent(this.movie, this.recommendations, this.isAddedWatchlist,
-      {super.key});
+  const DetailContent(
+    this.movie,
+    this.recommendations,
+    this.isAddedWatchlist,
+    this.isMovie, {
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -221,7 +228,7 @@ class DetailContent extends StatelessWidget {
                                                 MovieDetailPage.routeName,
                                                 arguments: {
                                                   'id': movie.id,
-                                                  'isMovie': movie.isMovie,
+                                                  'isMovie': isMovie,
                                                 },
                                               );
                                             },
