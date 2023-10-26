@@ -1,12 +1,8 @@
-import 'package:common/common.dart';
 import 'package:common/constants.dart';
-import 'package:common/di/injection.dart';
 import 'package:common/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_movie_app/route/home_page.dart';
 import 'package:flutter_movie_app/route/route.dart';
-import 'package:presentation/provider/top_rated_movies_notifier.dart';
-import 'package:presentation/provider/top_rated_tv_series_notifier.dart';
 
 import '../di/injection.dart' as di;
 
@@ -19,26 +15,16 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) => MultiProvider(
-        providers: [
-          ChangeNotifierProvider(
-            create: (_) => getIt<TopRatedMoviesNotifier>(),
-          ),
-          ChangeNotifierProvider(
-            create: (_) => getIt<TopRatedTvSeriesNotifier>(),
-          ),
-        ],
-        child: MaterialApp(
-          title: 'Flutter Demo',
-          theme: ThemeData.dark().copyWith(
-            colorScheme: kColorScheme,
-            primaryColor: kRichBlack,
-            scaffoldBackgroundColor: kRichBlack,
-            textTheme: kTextTheme,
-          ),
-          home: homePage,
-          navigatorObservers: [routeObserver],
-          onGenerateRoute: onGenerateRoute,
+  Widget build(BuildContext context) => MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData.dark().copyWith(
+          colorScheme: kColorScheme,
+          primaryColor: kRichBlack,
+          scaffoldBackgroundColor: kRichBlack,
+          textTheme: kTextTheme,
         ),
+        home: homePage,
+        navigatorObservers: [routeObserver],
+        onGenerateRoute: onGenerateRoute,
       );
 }

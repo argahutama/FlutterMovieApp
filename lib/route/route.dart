@@ -59,14 +59,16 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
     case TopRatedMoviesPage.routeName:
       return CupertinoPageRoute(
         builder: (_) => BlocProvider(
-          create: (context) => getIt<TopRatedMoviesCubit>(),
+          create: (context) =>
+              getIt<TopRatedMoviesCubit>()..fetchTopRatedMovies(),
           child: const TopRatedMoviesPage(),
         ),
       );
     case TopRatedTvSeriesPage.routeName:
       return CupertinoPageRoute(
         builder: (_) => BlocProvider(
-          create: (context) => getIt<TopRatedTvSeriesCubit>(),
+          create: (context) =>
+              getIt<TopRatedTvSeriesCubit>()..fetchTopRatedTvSeries(),
           child: const TopRatedTvSeriesPage(),
         ),
       );

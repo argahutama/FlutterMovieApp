@@ -24,10 +24,10 @@ class PopularTvSeriesCubit extends Cubit<PopularTvSeriesState> {
           message: failure.message,
         ));
       },
-      (moviesData) {
+      (tvSeriesData) {
         emit(state.copyWith(
           tvSeriesState: RequestState.loaded,
-          tvSeries: moviesData,
+          tvSeries: tvSeriesData,
         ));
       },
     );
