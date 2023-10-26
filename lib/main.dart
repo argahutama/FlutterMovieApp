@@ -5,12 +5,10 @@ import 'package:common/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_movie_app/route/home_page.dart';
 import 'package:flutter_movie_app/route/route.dart';
-import 'package:presentation/provider/movie_search_notifier.dart';
 import 'package:presentation/provider/popular_movies_notifier.dart';
 import 'package:presentation/provider/popular_tv_series_notifier.dart';
 import 'package:presentation/provider/top_rated_movies_notifier.dart';
 import 'package:presentation/provider/top_rated_tv_series_notifier.dart';
-import 'package:presentation/provider/tv_series_search_notifier.dart';
 import 'package:presentation/provider/watchlist_movie_notifier.dart';
 
 import '../di/injection.dart' as di;
@@ -26,12 +24,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MultiProvider(
         providers: [
-          ChangeNotifierProvider(
-            create: (_) => getIt<MovieSearchNotifier>(),
-          ),
-          ChangeNotifierProvider(
-            create: (_) => getIt<TvSeriesSearchNotifier>(),
-          ),
           ChangeNotifierProvider(
             create: (_) => getIt<TopRatedMoviesNotifier>(),
           ),

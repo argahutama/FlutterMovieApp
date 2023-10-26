@@ -2,7 +2,7 @@ import 'package:common/common.dart';
 import 'package:common/constants.dart';
 import 'package:common/state_enum.dart';
 import 'package:flutter/material.dart';
-import 'package:presentation/provider/tv_series_search_notifier.dart';
+import 'package:presentation/cubits/tv_series_search_cubit.dart';
 import 'package:presentation/widgets/movie_card_list.dart';
 
 class SearchTvSeriesPage extends StatelessWidget {
@@ -22,10 +22,7 @@ class SearchTvSeriesPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextField(
-              onSubmitted: (query) {
-                Provider.of<TvSeriesSearchNotifier>(context, listen: false)
-                    .fetchMovieSearch(query);
-              },
+              onSubmitted: context.read<TvSeriesSearchCubit>().fetchMovieSearch,
               decoration: const InputDecoration(
                 hintText: 'Search title',
                 prefixIcon: Icon(Icons.search),
@@ -38,19 +35,19 @@ class SearchTvSeriesPage extends StatelessWidget {
               'Search Result',
               style: kHeading6,
             ),
-            Consumer<TvSeriesSearchNotifier>(
-              builder: (context, data, child) {
-                if (data.state == RequestState.loading) {
+            BlocBuilder<TvSeriesSearchCubit, TvSeriesSearchState>(
+              builder: (context, state) {
+                if (state.tvSeriesState == RequestState.loading) {
                   return const Center(
                     child: CircularProgressIndicator(),
                   );
-                } else if (data.state == RequestState.loaded) {
-                  final result = data.searchResult;
+                } else if (state.tvSeriesState == RequestState.loaded) {
+                  final result = state.tvSeries;
                   return Expanded(
                     child: ListView.builder(
                       padding: const EdgeInsets.all(8),
                       itemBuilder: (context, index) {
-                        final movie = data.searchResult[index];
+                        final movie = state.tvSeries[index];
                         return MovieCard(movie);
                       },
                       itemCount: result.length,
