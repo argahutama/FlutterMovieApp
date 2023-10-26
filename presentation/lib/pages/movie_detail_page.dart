@@ -11,7 +11,9 @@ import 'package:presentation/cubits/movie_detail_cubit.dart';
 class MovieDetailPage extends StatelessWidget {
   static const routeName = '/detail';
 
-  const MovieDetailPage({super.key});
+  final bool isMovie;
+
+  const MovieDetailPage({super.key, required this.isMovie});
 
   @override
   Widget build(BuildContext context) {
@@ -47,13 +49,14 @@ class MovieDetailPage extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           } else if (state.movieState == RequestState.loaded) {
-            state.movie?.isMovie = cubit.isMovie;
+            state.movie?.isMovie = isMovie;
             final movie = state.movie;
             return SafeArea(
               child: DetailContent(
                 movie,
                 state.movieRecommendations,
                 state.isAddedToWatchlist,
+                isMovie,
               ),
             );
           } else {
@@ -69,17 +72,18 @@ class DetailContent extends StatelessWidget {
   final MovieDetail? movie;
   final List<Movie> recommendations;
   final bool isAddedWatchlist;
+  final bool isMovie;
 
   const DetailContent(
     this.movie,
     this.recommendations,
-    this.isAddedWatchlist, {
+    this.isAddedWatchlist,
+    this.isMovie, {
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<MovieDetailCubit>();
     final screenWidth = MediaQuery.of(context).size.width;
     return Stack(
       children: [
@@ -119,11 +123,15 @@ class DetailContent extends StatelessWidget {
                               style: kHeading5,
                             ),
                             ElevatedButton(
-                              onPressed: () {
+                              onPressed: () async {
                                 if (!isAddedWatchlist) {
-                                  cubit.addWatchlist(movie);
+                                  context
+                                      .read<MovieDetailCubit>()
+                                      .addWatchlist(movie);
                                 } else {
-                                  cubit.removeFromWatchlist(movie);
+                                  context
+                                      .read<MovieDetailCubit>()
+                                      .removeFromWatchlist(movie);
                                 }
                               },
                               child: Row(
@@ -196,7 +204,7 @@ class DetailContent extends StatelessWidget {
                                                 MovieDetailPage.routeName,
                                                 arguments: {
                                                   'id': movie.id,
-                                                  'isMovie': cubit.isMovie,
+                                                  'isMovie': isMovie,
                                                 },
                                               );
                                             },

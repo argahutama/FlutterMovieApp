@@ -22,8 +22,6 @@ class MovieDetailCubit extends Cubit<MovieDetailState> {
   final SaveWatchlist saveWatchlist;
   final RemoveWatchlist removeWatchlist;
 
-  var isMovie = false;
-
   MovieDetailCubit({
     required this.getMovieDetail,
     required this.getMovieRecommendations,
@@ -33,8 +31,6 @@ class MovieDetailCubit extends Cubit<MovieDetailState> {
   }) : super(MovieDetailState.empty());
 
   Future<void> fetchMovieDetail(int id, bool isMovie) async {
-    this.isMovie = isMovie;
-
     emit(state.copyWith(movieState: RequestState.loading));
 
     final detailResult = await getMovieDetail.execute(id, isMovie);

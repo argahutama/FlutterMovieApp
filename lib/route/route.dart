@@ -83,7 +83,7 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
           create: (context) => getIt<MovieDetailCubit>()
             ..fetchMovieDetail(id, isMovie)
             ..loadWatchlistStatus(id),
-          child: const MovieDetailPage(),
+          child: MovieDetailPage(isMovie: isMovie),
         ),
         settings: settings,
       );
