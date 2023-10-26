@@ -4,9 +4,9 @@ import 'package:common/di/injection.dart';
 import 'package:common/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_movie_app/route/route.dart';
+import 'package:presentation/cubits/movie_list_cubit.dart';
 import 'package:presentation/pages/home_movie_page.dart';
 import 'package:presentation/provider/movie_detail_notifier.dart';
-import 'package:presentation/provider/movie_list_notifier.dart';
 import 'package:presentation/provider/movie_search_notifier.dart';
 import 'package:presentation/provider/popular_movies_notifier.dart';
 import 'package:presentation/provider/popular_tv_series_notifier.dart';
@@ -29,9 +29,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MultiProvider(
         providers: [
-          ChangeNotifierProvider(
-            create: (_) => getIt<MovieListNotifier>(),
-          ),
           ChangeNotifierProvider(
             create: (_) => getIt<TvSeriesListNotifier>(),
           ),
@@ -68,7 +65,10 @@ class MyApp extends StatelessWidget {
             scaffoldBackgroundColor: kRichBlack,
             textTheme: kTextTheme,
           ),
-          home: const HomeMoviePage(),
+          home: BlocProvider(
+            create: (context) => getIt<MovieListCubit>(),
+            child: const HomeMoviePage(),
+          ),
           navigatorObservers: [routeObserver],
           onGenerateRoute: onGenerateRoute,
         ),
