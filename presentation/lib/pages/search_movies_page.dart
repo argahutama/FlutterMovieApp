@@ -1,9 +1,9 @@
+import 'package:common/common.dart';
 import 'package:common/constants.dart';
 import 'package:common/state_enum.dart';
-import 'package:presentation/provider/movie_search_notifier.dart';
-import 'package:presentation/widgets/movie_card_list.dart';
 import 'package:flutter/material.dart';
-import 'package:common/common.dart';
+import 'package:presentation/cubits/movie_search_cubit.dart';
+import 'package:presentation/widgets/movie_card_list.dart';
 
 class SearchMoviesPage extends StatelessWidget {
   static const routeName = '/search-movies';
@@ -22,10 +22,7 @@ class SearchMoviesPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextField(
-              onSubmitted: (query) {
-                Provider.of<MovieSearchNotifier>(context, listen: false)
-                    .fetchMovieSearch(query);
-              },
+              onSubmitted: context.read<MovieSearchCubit>().fetchMovieSearch,
               decoration: const InputDecoration(
                 hintText: 'Search title',
                 prefixIcon: Icon(Icons.search),
@@ -38,19 +35,19 @@ class SearchMoviesPage extends StatelessWidget {
               'Search Result',
               style: kHeading6,
             ),
-            Consumer<MovieSearchNotifier>(
-              builder: (context, data, child) {
-                if (data.state == RequestState.loading) {
+            BlocBuilder<MovieSearchCubit, MovieSearchState>(
+              builder: (context, state) {
+                if (state.moviesState == RequestState.loading) {
                   return const Center(
                     child: CircularProgressIndicator(),
                   );
-                } else if (data.state == RequestState.loaded) {
-                  final result = data.searchResult;
+                } else if (state.moviesState == RequestState.loaded) {
+                  final result = state.movies;
                   return Expanded(
                     child: ListView.builder(
                       padding: const EdgeInsets.all(8),
                       itemBuilder: (context, index) {
-                        final movie = data.searchResult[index];
+                        final movie = state.movies[index];
                         return MovieCard(movie);
                       },
                       itemCount: result.length,

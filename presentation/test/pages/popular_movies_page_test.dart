@@ -1,26 +1,25 @@
+import 'package:bloc_test/bloc_test.dart';
+import 'package:common/common.dart';
 import 'package:common/state_enum.dart';
-import 'package:domain/entities/movie.dart';
-import 'package:presentation/pages/popular_movies_page.dart';
-import 'package:presentation/provider/popular_movies_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
-import 'package:common/common.dart';
+import 'package:mocktail/mocktail.dart';
+import 'package:presentation/cubits/popular_movies_cubit.dart';
+import 'package:presentation/pages/popular_movies_page.dart';
 
-import 'popular_movies_page_test.mocks.dart';
+class MockPopularMoviesCubit extends MockCubit<PopularMoviesState>
+    implements PopularMoviesCubit {}
 
-@GenerateMocks([PopularMoviesNotifier])
 void main() {
-  late MockPopularMoviesNotifier mockNotifier;
+  late MockPopularMoviesCubit mockPopularMoviesCubit;
 
   setUp(() {
-    mockNotifier = MockPopularMoviesNotifier();
+    mockPopularMoviesCubit = MockPopularMoviesCubit();
   });
 
   Widget makeTestableWidget(Widget body) {
-    return ChangeNotifierProvider<PopularMoviesNotifier>.value(
-      value: mockNotifier,
+    return BlocProvider<PopularMoviesCubit>.value(
+      value: mockPopularMoviesCubit,
       child: MaterialApp(
         home: body,
       ),
@@ -29,21 +28,27 @@ void main() {
 
   testWidgets('Page should display center progress bar when loading',
       (WidgetTester tester) async {
-    when(mockNotifier.state).thenReturn(RequestState.loading);
+    when(() => mockPopularMoviesCubit.state).thenReturn(
+      PopularMoviesState.initial().copyWith(moviesState: RequestState.loading),
+    );
 
-    final progressBarFinder = find.byType(CircularProgressIndicator);
     final centerFinder = find.byType(Center);
+    final progressBarFinder = find.byType(CircularProgressIndicator);
 
     await tester.pumpWidget(makeTestableWidget(const PopularMoviesPage()));
 
-    expect(centerFinder, findsOneWidget);
     expect(progressBarFinder, findsOneWidget);
+    expect(centerFinder, findsOneWidget);
   });
 
   testWidgets('Page should display ListView when data is loaded',
       (WidgetTester tester) async {
-    when(mockNotifier.state).thenReturn(RequestState.loaded);
-    when(mockNotifier.movies).thenReturn(<Movie>[]);
+    when(() => mockPopularMoviesCubit.state)
+        .thenReturn(const PopularMoviesState(
+      movies: [],
+      moviesState: RequestState.loaded,
+      message: '',
+    ));
 
     final listViewFinder = find.byType(ListView);
 
@@ -54,8 +59,11 @@ void main() {
 
   testWidgets('Page should display text with message when Error',
       (WidgetTester tester) async {
-    when(mockNotifier.state).thenReturn(RequestState.error);
-    when(mockNotifier.message).thenReturn('Error message');
+    when(() => mockPopularMoviesCubit.state)
+        .thenReturn(PopularMoviesState.initial().copyWith(
+      moviesState: RequestState.error,
+      message: 'Error message',
+    ));
 
     final textFinder = find.byKey(const Key('error_message'));
 

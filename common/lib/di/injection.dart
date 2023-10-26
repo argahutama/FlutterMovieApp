@@ -1,3 +1,3 @@
-import 'package:get_it/get_it.dart';
+import 'package:common/common.dart';
 
 final getIt = GetIt.instance;

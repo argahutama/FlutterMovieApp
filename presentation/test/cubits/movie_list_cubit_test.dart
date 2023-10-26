@@ -4,34 +4,30 @@ import 'package:domain/usecases/get_now_playing_movies.dart';
 import 'package:common/failure.dart';
 import 'package:domain/usecases/get_popular_movies.dart';
 import 'package:domain/usecases/get_top_rated_movies.dart';
-import 'package:presentation/provider/movie_list_notifier.dart';
+import 'package:presentation/cubits/movie_list_cubit.dart';
 import 'package:common/state_enum.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'movie_list_notifier_test.mocks.dart';
+import 'movie_list_cubit_test.mocks.dart';
 
 @GenerateMocks([GetNowPlayingMovies, GetPopularMovies, GetTopRatedMovies])
 void main() {
-  late MovieListNotifier provider;
+  late MovieListCubit cubit;
   late MockGetNowPlayingMovies mockGetNowPlayingMovies;
   late MockGetPopularMovies mockGetPopularMovies;
   late MockGetTopRatedMovies mockGetTopRatedMovies;
-  late int listenerCallCount;
 
   setUp(() {
-    listenerCallCount = 0;
     mockGetNowPlayingMovies = MockGetNowPlayingMovies();
     mockGetPopularMovies = MockGetPopularMovies();
     mockGetTopRatedMovies = MockGetTopRatedMovies();
-    provider = MovieListNotifier(
+    cubit = MovieListCubit(
       getNowPlayingMovies: mockGetNowPlayingMovies,
       getPopularMovies: mockGetPopularMovies,
       getTopRatedMovies: mockGetTopRatedMovies,
-    )..addListener(() {
-        listenerCallCount += 1;
-      });
+    );
   });
 
   final tMovie = Movie(
@@ -54,7 +50,7 @@ void main() {
 
   group('now playing movies', () {
     test('initialState should be Empty', () {
-      expect(provider.nowPlayingState, equals(RequestState.empty));
+      expect(cubit.state.nowPlayingState, equals(RequestState.empty));
     });
 
     test('should get data from the usecase', () async {
@@ -62,7 +58,7 @@ void main() {
       when(mockGetNowPlayingMovies.execute())
           .thenAnswer((_) async => Right(tMovieList));
       // act
-      provider.fetchNowPlayingMovies();
+      cubit.fetchNowPlayingMovies();
       // assert
       verify(mockGetNowPlayingMovies.execute());
     });
@@ -72,9 +68,9 @@ void main() {
       when(mockGetNowPlayingMovies.execute())
           .thenAnswer((_) async => Right(tMovieList));
       // act
-      provider.fetchNowPlayingMovies();
+      cubit.fetchNowPlayingMovies();
       // assert
-      expect(provider.nowPlayingState, RequestState.loading);
+      expect(cubit.state.nowPlayingState, RequestState.loading);
     });
 
     test('should change movies when data is gotten successfully', () async {
@@ -82,11 +78,10 @@ void main() {
       when(mockGetNowPlayingMovies.execute())
           .thenAnswer((_) async => Right(tMovieList));
       // act
-      await provider.fetchNowPlayingMovies();
+      await cubit.fetchNowPlayingMovies();
       // assert
-      expect(provider.nowPlayingState, RequestState.loaded);
-      expect(provider.nowPlayingMovies, tMovieList);
-      expect(listenerCallCount, 2);
+      expect(cubit.state.nowPlayingState, RequestState.loaded);
+      expect(cubit.state.nowPlayingMovies, tMovieList);
     });
 
     test('should return error when data is unsuccessful', () async {
@@ -94,11 +89,10 @@ void main() {
       when(mockGetNowPlayingMovies.execute())
           .thenAnswer((_) async => const Left(ServerFailure('Server Failure')));
       // act
-      await provider.fetchNowPlayingMovies();
+      await cubit.fetchNowPlayingMovies();
       // assert
-      expect(provider.nowPlayingState, RequestState.error);
-      expect(provider.message, 'Server Failure');
-      expect(listenerCallCount, 2);
+      expect(cubit.state.nowPlayingState, RequestState.error);
+      expect(cubit.state.message, 'Server Failure');
     });
   });
 
@@ -108,10 +102,10 @@ void main() {
       when(mockGetPopularMovies.execute())
           .thenAnswer((_) async => Right(tMovieList));
       // act
-      provider.fetchPopularMovies();
+      cubit.fetchPopularMovies();
       // assert
-      expect(provider.popularMoviesState, RequestState.loading);
-      // verify(provider.setState(RequestState.Loading));
+      expect(cubit.state.popularMoviesState, RequestState.loading);
+      // verify(cubit.setState(RequestState.Loading));
     });
 
     test('should change movies data when data is gotten successfully',
@@ -120,11 +114,10 @@ void main() {
       when(mockGetPopularMovies.execute())
           .thenAnswer((_) async => Right(tMovieList));
       // act
-      await provider.fetchPopularMovies();
+      await cubit.fetchPopularMovies();
       // assert
-      expect(provider.popularMoviesState, RequestState.loaded);
-      expect(provider.popularMovies, tMovieList);
-      expect(listenerCallCount, 2);
+      expect(cubit.state.popularMoviesState, RequestState.loaded);
+      expect(cubit.state.popularMovies, tMovieList);
     });
 
     test('should return error when data is unsuccessful', () async {
@@ -132,11 +125,10 @@ void main() {
       when(mockGetPopularMovies.execute())
           .thenAnswer((_) async => const Left(ServerFailure('Server Failure')));
       // act
-      await provider.fetchPopularMovies();
+      await cubit.fetchPopularMovies();
       // assert
-      expect(provider.popularMoviesState, RequestState.error);
-      expect(provider.message, 'Server Failure');
-      expect(listenerCallCount, 2);
+      expect(cubit.state.popularMoviesState, RequestState.error);
+      expect(cubit.state.message, 'Server Failure');
     });
   });
 
@@ -146,9 +138,9 @@ void main() {
       when(mockGetTopRatedMovies.execute())
           .thenAnswer((_) async => Right(tMovieList));
       // act
-      provider.fetchTopRatedMovies();
+      cubit.fetchTopRatedMovies();
       // assert
-      expect(provider.topRatedMoviesState, RequestState.loading);
+      expect(cubit.state.topRatedMoviesState, RequestState.loading);
     });
 
     test('should change movies data when data is gotten successfully',
@@ -157,11 +149,10 @@ void main() {
       when(mockGetTopRatedMovies.execute())
           .thenAnswer((_) async => Right(tMovieList));
       // act
-      await provider.fetchTopRatedMovies();
+      await cubit.fetchTopRatedMovies();
       // assert
-      expect(provider.topRatedMoviesState, RequestState.loaded);
-      expect(provider.topRatedMovies, tMovieList);
-      expect(listenerCallCount, 2);
+      expect(cubit.state.topRatedMoviesState, RequestState.loaded);
+      expect(cubit.state.topRatedMovies, tMovieList);
     });
 
     test('should return error when data is unsuccessful', () async {
@@ -169,11 +160,10 @@ void main() {
       when(mockGetTopRatedMovies.execute())
           .thenAnswer((_) async => const Left(ServerFailure('Server Failure')));
       // act
-      await provider.fetchTopRatedMovies();
+      await cubit.fetchTopRatedMovies();
       // assert
-      expect(provider.topRatedMoviesState, RequestState.error);
-      expect(provider.message, 'Server Failure');
-      expect(listenerCallCount, 2);
+      expect(cubit.state.topRatedMoviesState, RequestState.error);
+      expect(cubit.state.message, 'Server Failure');
     });
   });
 }
