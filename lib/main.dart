@@ -5,7 +5,6 @@ import 'package:common/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_movie_app/route/home_page.dart';
 import 'package:flutter_movie_app/route/route.dart';
-import 'package:presentation/provider/movie_detail_notifier.dart';
 import 'package:presentation/provider/movie_search_notifier.dart';
 import 'package:presentation/provider/popular_movies_notifier.dart';
 import 'package:presentation/provider/popular_tv_series_notifier.dart';
@@ -27,9 +26,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MultiProvider(
         providers: [
-          ChangeNotifierProvider(
-            create: (_) => getIt<MovieDetailNotifier>(),
-          ),
           ChangeNotifierProvider(
             create: (_) => getIt<MovieSearchNotifier>(),
           ),

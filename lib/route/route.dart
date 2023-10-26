@@ -76,11 +76,10 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
 
       return MaterialPageRoute(
         builder: (_) => BlocProvider(
-          create: (context) => getIt<MovieDetailCubit>(),
-          child: MovieDetailPage(
-            id: id,
-            isMovie: isMovie,
-          ),
+          create: (context) => getIt<MovieDetailCubit>()
+            ..fetchMovieDetail(id, isMovie)
+            ..loadWatchlistStatus(id),
+          child: const MovieDetailPage(),
         ),
         settings: settings,
       );

@@ -9,7 +9,6 @@ import 'package:presentation/cubits/top_rated_tv_series_cubit.dart';
 import 'package:presentation/cubits/tv_series_list_cubit.dart';
 import 'package:presentation/cubits/tv_series_search_cubit.dart';
 import 'package:presentation/cubits/watchlist_movies_cubit.dart';
-import 'package:presentation/provider/movie_detail_notifier.dart';
 import 'package:presentation/provider/movie_search_notifier.dart';
 import 'package:presentation/provider/popular_movies_notifier.dart';
 import 'package:presentation/provider/popular_tv_series_notifier.dart';
@@ -20,9 +19,6 @@ import 'package:presentation/provider/watchlist_movie_notifier.dart';
 
 @module
 abstract class PresentationModule {
-  @injectable
-  MovieDetailNotifier get movieDetailNotifier;
-
   @injectable
   MovieSearchNotifier get movieSearchNotifier;
 
