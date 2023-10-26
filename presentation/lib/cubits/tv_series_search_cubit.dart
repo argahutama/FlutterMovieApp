@@ -14,7 +14,7 @@ class TvSeriesSearchCubit extends Cubit<TvSeriesSearchState> {
     this.searchTvSeries,
   ) : super(TvSeriesSearchState.initial());
 
-  void fetchMovieSearch(String query) async {
+  Future<void> fetchMovieSearch(String query) async {
     emit(state.copyWith(tvSeriesState: RequestState.loading));
     final result = await searchTvSeries.execute(query);
     result.fold(

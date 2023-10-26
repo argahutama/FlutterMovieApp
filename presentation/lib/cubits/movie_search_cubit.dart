@@ -14,7 +14,7 @@ class MovieSearchCubit extends Cubit<MovieSearchState> {
     this.searchMovies,
   ) : super(MovieSearchState.initial());
 
-  void fetchMovieSearch(String query) async {
+  Future<void> fetchMovieSearch(String query) async {
     emit(state.copyWith(moviesState: RequestState.loading));
     final result = await searchMovies.execute(query);
     result.fold(

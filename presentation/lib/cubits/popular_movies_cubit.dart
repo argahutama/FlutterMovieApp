@@ -14,7 +14,7 @@ class PopularMoviesCubit extends Cubit<PopularMoviesState> {
     this.getPopularMovies,
   ) : super(PopularMoviesState.initial());
 
-  void fetchPopularMovies() async {
+  Future<void> fetchPopularMovies() async {
     emit(state.copyWith(moviesState: RequestState.loading));
     final result = await getPopularMovies.execute();
     result.fold(

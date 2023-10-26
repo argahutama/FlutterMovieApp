@@ -32,7 +32,7 @@ class MovieDetailCubit extends Cubit<MovieDetailState> {
     required this.removeWatchlist,
   }) : super(MovieDetailState.empty());
 
-  void fetchMovieDetail(int id, bool isMovie) async {
+  Future<void> fetchMovieDetail(int id, bool isMovie) async {
     this.isMovie = isMovie;
 
     emit(state.copyWith(movieState: RequestState.loading));
@@ -57,14 +57,16 @@ class MovieDetailCubit extends Cubit<MovieDetailState> {
         emit(state.copyWith(
           movieState: RequestState.loaded,
           movie: movie,
-          recommendationState: RequestState.loaded,
+          recommendationState: movieRecommendations.isNotEmpty
+              ? RequestState.loaded
+              : RequestState.empty,
           movieRecommendations: movieRecommendations,
         ));
       },
     );
   }
 
-  void addWatchlist(MovieDetail? movie) async {
+  Future<void> addWatchlist(MovieDetail? movie) async {
     if (movie == null) {
       return;
     }
@@ -80,7 +82,7 @@ class MovieDetailCubit extends Cubit<MovieDetailState> {
     loadWatchlistStatus(movie.id);
   }
 
-  void removeFromWatchlist(MovieDetail? movie) async {
+  Future<void> removeFromWatchlist(MovieDetail? movie) async {
     if (movie == null) {
       return;
     }
@@ -96,7 +98,7 @@ class MovieDetailCubit extends Cubit<MovieDetailState> {
     loadWatchlistStatus(movie.id);
   }
 
-  void loadWatchlistStatus(int id) async {
+  Future<void> loadWatchlistStatus(int id) async {
     final result = await getWatchListStatus.execute(id);
     emit(state.copyWith(isAddedToWatchlist: result));
   }

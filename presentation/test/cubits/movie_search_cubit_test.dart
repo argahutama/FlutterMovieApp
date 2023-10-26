@@ -3,26 +3,21 @@ import 'package:common/failure.dart';
 import 'package:common/state_enum.dart';
 import 'package:domain/entities/movie.dart';
 import 'package:domain/usecases/search_movies.dart';
-import 'package:presentation/provider/movie_search_notifier.dart';
+import 'package:presentation/cubits/movie_search_cubit.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'movie_search_notifier_test.mocks.dart';
+import 'movie_search_cubit_test.mocks.dart';
 
 @GenerateMocks([SearchMovies])
 void main() {
-  late MovieSearchNotifier provider;
+  late MovieSearchCubit cubit;
   late MockSearchMovies mockSearchMovies;
-  late int listenerCallCount;
 
   setUp(() {
-    listenerCallCount = 0;
     mockSearchMovies = MockSearchMovies();
-    provider = MovieSearchNotifier(searchMovies: mockSearchMovies)
-      ..addListener(() {
-        listenerCallCount += 1;
-      });
+    cubit = MovieSearchCubit(mockSearchMovies);
   });
 
   final tMovieModel = Movie(
@@ -53,9 +48,9 @@ void main() {
       when(mockSearchMovies.execute(tQuery))
           .thenAnswer((_) async => Right(tMovieList));
       // act
-      provider.fetchMovieSearch(tQuery);
+      cubit.fetchMovieSearch(tQuery);
       // assert
-      expect(provider.state, RequestState.loading);
+      expect(cubit.state.moviesState, RequestState.loading);
     });
 
     test('should change search result data when data is gotten successfully',
@@ -64,11 +59,10 @@ void main() {
       when(mockSearchMovies.execute(tQuery))
           .thenAnswer((_) async => Right(tMovieList));
       // act
-      await provider.fetchMovieSearch(tQuery);
+      await cubit.fetchMovieSearch(tQuery);
       // assert
-      expect(provider.state, RequestState.loaded);
-      expect(provider.searchResult, tMovieList);
-      expect(listenerCallCount, 2);
+      expect(cubit.state.moviesState, RequestState.loaded);
+      expect(cubit.state.movies, tMovieList);
     });
 
     test('should return error when data is unsuccessful', () async {
@@ -76,11 +70,10 @@ void main() {
       when(mockSearchMovies.execute(tQuery))
           .thenAnswer((_) async => const Left(ServerFailure('Server Failure')));
       // act
-      await provider.fetchMovieSearch(tQuery);
+      await cubit.fetchMovieSearch(tQuery);
       // assert
-      expect(provider.state, RequestState.error);
-      expect(provider.message, 'Server Failure');
-      expect(listenerCallCount, 2);
+      expect(cubit.state.moviesState, RequestState.error);
+      expect(cubit.state.message, 'Server Failure');
     });
   });
 }

@@ -20,7 +20,7 @@ class TvSeriesListCubit extends Cubit<TvSeriesListState> {
   final GetPopularTvSeries getPopularTvSeries;
   final GetTopRatedTvSeries getTopRatedTvSeries;
 
-  void fetchNowPlayingTvSeries() async {
+  Future<void> fetchNowPlayingTvSeries() async {
     emit(state.copyWith(nowPlayingState: RequestState.loading));
     final result = await getNowPlayingTvSeries.execute();
     result.fold(
@@ -39,7 +39,7 @@ class TvSeriesListCubit extends Cubit<TvSeriesListState> {
     );
   }
 
-  void fetchPopularTvSeries() async {
+  Future<void> fetchPopularTvSeries() async {
     emit(state.copyWith(popularTvSeriesState: RequestState.loading));
     final result = await getPopularTvSeries.execute();
     result.fold(
@@ -58,7 +58,7 @@ class TvSeriesListCubit extends Cubit<TvSeriesListState> {
     );
   }
 
-  void fetchTopRatedTvSeries() async {
+  Future<void> fetchTopRatedTvSeries() async {
     emit(state.copyWith(topRatedTvSeriesState: RequestState.loading));
     final result = await getTopRatedTvSeries.execute();
     result.fold(
