@@ -8,6 +8,6 @@ import './injection.config.dart';
   preferRelativeImports: true,
   asExtension: true,
 )
-void getDependencies() {
-  getIt.init();
+Future<void> getDependencies() async {
+  await getIt.init();
 }

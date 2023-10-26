@@ -25,7 +25,7 @@ class HomeMoviePage extends StatelessWidget {
           children: [
             const UserAccountsDrawerHeader(
               currentAccountPicture: CircleAvatar(
-                backgroundImage: AssetImage('assets/circle-g.png'),
+                backgroundImage: AssetImage('assets/icons/circle-g.png'),
               ),
               accountName: Text('Ditonton'),
               accountEmail: Text('ditonton@dicoding.com'),

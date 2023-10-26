@@ -11,9 +11,9 @@ import 'package:flutter_movie_app/route/route.dart';
 import '../di/injection.dart' as di;
 
 void main() async {
-  di.getDependencies();
-
   WidgetsFlutterBinding.ensureInitialized();
+
+  await di.getDependencies();
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
