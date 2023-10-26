@@ -43,14 +43,16 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
     case PopularMoviesPage.routeName:
       return CupertinoPageRoute(
         builder: (_) => BlocProvider(
-          create: (context) => getIt<PopularMoviesCubit>(),
+          create: (context) =>
+              getIt<PopularMoviesCubit>()..fetchPopularMovies(),
           child: const PopularMoviesPage(),
         ),
       );
     case PopularTvSeriesPage.routeName:
       return CupertinoPageRoute(
         builder: (_) => BlocProvider(
-          create: (context) => getIt<PopularTvSeriesCubit>(),
+          create: (context) =>
+              getIt<PopularTvSeriesCubit>()..fetchPopularMovies(),
           child: const PopularTvSeriesPage(),
         ),
       );

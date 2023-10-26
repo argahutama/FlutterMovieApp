@@ -5,8 +5,6 @@ import 'package:common/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_movie_app/route/home_page.dart';
 import 'package:flutter_movie_app/route/route.dart';
-import 'package:presentation/provider/popular_movies_notifier.dart';
-import 'package:presentation/provider/popular_tv_series_notifier.dart';
 import 'package:presentation/provider/top_rated_movies_notifier.dart';
 import 'package:presentation/provider/top_rated_tv_series_notifier.dart';
 
@@ -28,12 +26,6 @@ class MyApp extends StatelessWidget {
           ),
           ChangeNotifierProvider(
             create: (_) => getIt<TopRatedTvSeriesNotifier>(),
-          ),
-          ChangeNotifierProvider(
-            create: (_) => getIt<PopularMoviesNotifier>(),
-          ),
-          ChangeNotifierProvider(
-            create: (_) => getIt<PopularTvSeriesNotifier>(),
           ),
         ],
         child: MaterialApp(
