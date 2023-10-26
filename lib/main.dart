@@ -3,16 +3,14 @@ import 'package:common/constants.dart';
 import 'package:common/di/injection.dart';
 import 'package:common/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_movie_app/route/home_page.dart';
 import 'package:flutter_movie_app/route/route.dart';
-import 'package:presentation/cubits/movie_list_cubit.dart';
-import 'package:presentation/pages/home_movie_page.dart';
 import 'package:presentation/provider/movie_detail_notifier.dart';
 import 'package:presentation/provider/movie_search_notifier.dart';
 import 'package:presentation/provider/popular_movies_notifier.dart';
 import 'package:presentation/provider/popular_tv_series_notifier.dart';
 import 'package:presentation/provider/top_rated_movies_notifier.dart';
 import 'package:presentation/provider/top_rated_tv_series_notifier.dart';
-import 'package:presentation/provider/tv_series_list_notifier.dart';
 import 'package:presentation/provider/tv_series_search_notifier.dart';
 import 'package:presentation/provider/watchlist_movie_notifier.dart';
 
@@ -29,9 +27,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MultiProvider(
         providers: [
-          ChangeNotifierProvider(
-            create: (_) => getIt<TvSeriesListNotifier>(),
-          ),
           ChangeNotifierProvider(
             create: (_) => getIt<MovieDetailNotifier>(),
           ),
@@ -65,10 +60,7 @@ class MyApp extends StatelessWidget {
             scaffoldBackgroundColor: kRichBlack,
             textTheme: kTextTheme,
           ),
-          home: BlocProvider(
-            create: (context) => getIt<MovieListCubit>(),
-            child: const HomeMoviePage(),
-          ),
+          home: homePage,
           navigatorObservers: [routeObserver],
           onGenerateRoute: onGenerateRoute,
         ),

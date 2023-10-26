@@ -20,7 +20,7 @@ class MovieListCubit extends Cubit<MovieListState> {
   final GetPopularMovies getPopularMovies;
   final GetTopRatedMovies getTopRatedMovies;
 
-  Future<void> fetchNowPlayingMovies() async {
+  void fetchNowPlayingMovies() async {
     emit(state.copyWith(nowPlayingState: RequestState.loading));
     final result = await getNowPlayingMovies.execute();
     result.fold(
@@ -39,7 +39,7 @@ class MovieListCubit extends Cubit<MovieListState> {
     );
   }
 
-  Future<void> fetchPopularMovies() async {
+  void fetchPopularMovies() async {
     emit(state.copyWith(popularMoviesState: RequestState.loading));
     final result = await getPopularMovies.execute();
     result.fold(
@@ -58,7 +58,7 @@ class MovieListCubit extends Cubit<MovieListState> {
     );
   }
 
-  Future<void> fetchTopRatedMovies() async {
+  void fetchTopRatedMovies() async {
     emit(state.copyWith(topRatedMoviesState: RequestState.loading));
     final result = await getTopRatedMovies.execute();
     result.fold(

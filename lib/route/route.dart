@@ -2,8 +2,8 @@ import 'package:common/common.dart';
 import 'package:common/di/injection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_movie_app/route/home_page.dart';
 import 'package:presentation/cubits/movie_detail_cubit.dart';
-import 'package:presentation/cubits/movie_list_cubit.dart';
 import 'package:presentation/cubits/movie_search_cubit.dart';
 import 'package:presentation/cubits/popular_movies_cubit.dart';
 import 'package:presentation/cubits/popular_tv_series_cubit.dart';
@@ -28,15 +28,15 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
   switch (settings.name) {
     case HomeMoviePage.routeName:
       return MaterialPageRoute(
-        builder: (_) => BlocProvider(
-          create: (context) => getIt<MovieListCubit>(),
-          child: const HomeMoviePage(),
-        ),
+        builder: (_) => homePage,
       );
     case HomeTvSeriesPage.routeName:
       return MaterialPageRoute(
         builder: (_) => BlocProvider(
-          create: (context) => getIt<TvSeriesListCubit>(),
+          create: (context) => getIt<TvSeriesListCubit>()
+            ..fetchNowPlayingTvSeries()
+            ..fetchPopularTvSeries()
+            ..fetchTopRatedTvSeries(),
           child: const HomeTvSeriesPage(),
         ),
       );

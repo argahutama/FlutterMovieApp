@@ -12,26 +12,10 @@ import 'package:presentation/pages/search_movies_page.dart';
 import 'package:presentation/pages/top_rated_movies_page.dart';
 import 'package:presentation/pages/watchlist_movies_page.dart';
 
-class HomeMoviePage extends StatefulWidget {
+class HomeMoviePage extends StatelessWidget {
   static const routeName = '/home';
 
   const HomeMoviePage({super.key});
-
-  @override
-  State<HomeMoviePage> createState() => _HomeMoviePageState();
-}
-
-class _HomeMoviePageState extends State<HomeMoviePage> {
-  @override
-  void initState() {
-    super.initState();
-    Future.microtask(
-      () => context.read<MovieListCubit>()
-        ..fetchNowPlayingMovies()
-        ..fetchPopularMovies()
-        ..fetchTopRatedMovies(),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
