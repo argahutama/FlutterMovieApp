@@ -100,7 +100,8 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
     case WatchlistMoviesPage.routeName:
       return MaterialPageRoute(
         builder: (_) => BlocProvider(
-          create: (context) => getIt<WatchlistMoviesCubit>(),
+          create: (context) =>
+              getIt<WatchlistMoviesCubit>()..fetchWatchlistMovies(),
           child: const WatchlistMoviesPage(),
         ),
       );

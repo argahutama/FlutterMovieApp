@@ -9,7 +9,6 @@ import 'package:presentation/provider/popular_movies_notifier.dart';
 import 'package:presentation/provider/popular_tv_series_notifier.dart';
 import 'package:presentation/provider/top_rated_movies_notifier.dart';
 import 'package:presentation/provider/top_rated_tv_series_notifier.dart';
-import 'package:presentation/provider/watchlist_movie_notifier.dart';
 
 import '../di/injection.dart' as di;
 
@@ -35,9 +34,6 @@ class MyApp extends StatelessWidget {
           ),
           ChangeNotifierProvider(
             create: (_) => getIt<PopularTvSeriesNotifier>(),
-          ),
-          ChangeNotifierProvider(
-            create: (_) => getIt<WatchlistMovieNotifier>(),
           ),
         ],
         child: MaterialApp(

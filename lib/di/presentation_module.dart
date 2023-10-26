@@ -13,7 +13,6 @@ import 'package:presentation/provider/popular_movies_notifier.dart';
 import 'package:presentation/provider/popular_tv_series_notifier.dart';
 import 'package:presentation/provider/top_rated_movies_notifier.dart';
 import 'package:presentation/provider/top_rated_tv_series_notifier.dart';
-import 'package:presentation/provider/watchlist_movie_notifier.dart';
 
 @module
 abstract class PresentationModule {
@@ -28,9 +27,6 @@ abstract class PresentationModule {
 
   @injectable
   TopRatedTvSeriesNotifier get topRatedTvSeriesNotifier;
-
-  @injectable
-  WatchlistMovieNotifier get watchlistMovieNotifier;
 
   @injectable
   MovieListCubit get movieListCubit;
