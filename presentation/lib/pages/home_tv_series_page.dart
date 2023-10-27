@@ -7,6 +7,7 @@ import 'package:presentation/cubits/tv_series_list_cubit.dart';
 import 'package:presentation/pages/about_page.dart';
 import 'package:presentation/pages/home_movie_page.dart';
 import 'package:presentation/pages/movie_detail_page.dart';
+import 'package:presentation/pages/now_playing_tv_series_page.dart';
 import 'package:presentation/pages/popular_tv_series_page.dart';
 import 'package:presentation/pages/search_tv_series_page.dart';
 import 'package:presentation/pages/top_rated_tv_series_page.dart';
@@ -76,9 +77,12 @@ class HomeTvSeriesPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Now Playing',
-                style: kHeading6,
+              _buildSubHeading(
+                title: 'Now Playing',
+                onTap: () => Navigator.pushNamed(
+                  context,
+                  NowPlayingTvSeriesPage.routeName,
+                ),
               ),
               BlocBuilder<TvSeriesListCubit, TvSeriesListState>(
                   builder: (context, state) {
@@ -94,8 +98,10 @@ class HomeTvSeriesPage extends StatelessWidget {
               }),
               _buildSubHeading(
                 title: 'Popular',
-                onTap: () =>
-                    Navigator.pushNamed(context, PopularTvSeriesPage.routeName),
+                onTap: () => Navigator.pushNamed(
+                  context,
+                  PopularTvSeriesPage.routeName,
+                ),
               ),
               BlocBuilder<TvSeriesListCubit, TvSeriesListState>(
                   builder: (context, state) {
@@ -112,7 +118,9 @@ class HomeTvSeriesPage extends StatelessWidget {
               _buildSubHeading(
                 title: 'Top Rated',
                 onTap: () => Navigator.pushNamed(
-                    context, TopRatedTvSeriesPage.routeName),
+                  context,
+                  TopRatedTvSeriesPage.routeName,
+                ),
               ),
               BlocBuilder<TvSeriesListCubit, TvSeriesListState>(
                   builder: (context, state) {

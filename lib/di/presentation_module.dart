@@ -6,6 +6,8 @@ import 'package:presentation/cubits/popular_movies_cubit.dart';
 import 'package:presentation/cubits/popular_tv_series_cubit.dart';
 import 'package:presentation/cubits/top_rated_movies_cubit.dart';
 import 'package:presentation/cubits/top_rated_tv_series_cubit.dart';
+import 'package:presentation/cubits/now_playing_movies_cubit.dart';
+import 'package:presentation/cubits/now_playing_tv_series_cubit.dart';
 import 'package:presentation/cubits/tv_series_list_cubit.dart';
 import 'package:presentation/cubits/tv_series_search_cubit.dart';
 import 'package:presentation/cubits/watchlist_movies_cubit.dart';
@@ -26,6 +28,12 @@ abstract class PresentationModule {
 
   @injectable
   TvSeriesSearchCubit get tvSeriesSearchCubit;
+
+  @injectable
+  NowPlayingMoviesCubit get nowPlayingMoviesCubit;
+
+  @injectable
+  NowPlayingTvSeriesCubit get nowPlayingTvSeriesCubit;
 
   @injectable
   PopularMoviesCubit get popularMoviesCubit;

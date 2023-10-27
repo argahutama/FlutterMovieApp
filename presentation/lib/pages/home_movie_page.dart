@@ -7,6 +7,7 @@ import 'package:presentation/cubits/movie_list_cubit.dart';
 import 'package:presentation/pages/about_page.dart';
 import 'package:presentation/pages/home_tv_series_page.dart';
 import 'package:presentation/pages/movie_detail_page.dart';
+import 'package:presentation/pages/now_playing_movies_page.dart';
 import 'package:presentation/pages/popular_movies_page.dart';
 import 'package:presentation/pages/search_movies_page.dart';
 import 'package:presentation/pages/top_rated_movies_page.dart';
@@ -72,9 +73,12 @@ class HomeMoviePage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Now Playing',
-                style: kHeading6,
+              _buildSubHeading(
+                title: 'Now Playing',
+                onTap: () => Navigator.pushNamed(
+                  context,
+                  NowPlayingMoviesPage.routeName,
+                ),
               ),
               BlocBuilder<MovieListCubit, MovieListState>(
                   builder: (context, state) {
