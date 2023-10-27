@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_movie_app/route/home_page.dart';
 import 'package:presentation/cubits/movie_detail_cubit.dart';
 import 'package:presentation/cubits/movie_search_cubit.dart';
+import 'package:presentation/cubits/now_playing_movies_cubit.dart';
+import 'package:presentation/cubits/now_playing_tv_series_cubit.dart';
 import 'package:presentation/cubits/popular_movies_cubit.dart';
 import 'package:presentation/cubits/popular_tv_series_cubit.dart';
 import 'package:presentation/cubits/top_rated_movies_cubit.dart';
@@ -16,6 +18,8 @@ import 'package:presentation/pages/about_page.dart';
 import 'package:presentation/pages/home_movie_page.dart';
 import 'package:presentation/pages/home_tv_series_page.dart';
 import 'package:presentation/pages/movie_detail_page.dart';
+import 'package:presentation/pages/now_playing_movies_page.dart';
+import 'package:presentation/pages/now_playing_tv_series_page.dart';
 import 'package:presentation/pages/popular_movies_page.dart';
 import 'package:presentation/pages/popular_tv_series_page.dart';
 import 'package:presentation/pages/search_movies_page.dart';
@@ -38,6 +42,22 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
             ..fetchPopularTvSeries()
             ..fetchTopRatedTvSeries(),
           child: const HomeTvSeriesPage(),
+        ),
+      );
+    case NowPlayingMoviesPage.routeName:
+      return CupertinoPageRoute(
+        builder: (_) => BlocProvider(
+          create: (context) =>
+              getIt<NowPlayingMoviesCubit>()..fetchNowPlayingMovies(),
+          child: const NowPlayingMoviesPage(),
+        ),
+      );
+    case NowPlayingTvSeriesPage.routeName:
+      return CupertinoPageRoute(
+        builder: (_) => BlocProvider(
+          create: (context) =>
+              getIt<NowPlayingTvSeriesCubit>()..fetchNowPlayingTvSeries(),
+          child: const NowPlayingTvSeriesPage(),
         ),
       );
     case PopularMoviesPage.routeName:
